@@ -37,9 +37,7 @@ class Regulator:
             self.H = (self.Tp / self.A) * ((-1) * Qo + self.Qd) + self.H
             self.Height.append(self.H)
             self.Points.append(i)
-            print(self.H)
         else:
-            print(str(self.Beta) + ' ' + str(self.H))
             Qo = self.Beta * math.sqrt(self.H)
             self.Qd = Qo
             self.H = (1 / self.A) * ((-1) * Qo + self.Qd) * self.Tp + self.H
