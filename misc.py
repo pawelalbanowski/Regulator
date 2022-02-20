@@ -31,17 +31,25 @@ class Regulator:
         return p
 
     def correct(self, i):
-        Qo = self.Beta * math.sqrt(self.H)
-        if self.H < self.desired:
-            self.Qd = self.QdMAX + Qo
-        self.H = (1 / self.A) * ((-1) * Qo + self.Qd) * self.Tp + self.H
-        if self.H >= self.H_max:
-            self.H = self.H_max
-        if self.H == self.desired:
+        if i == 0:
+            Qo = self.Beta * math.sqrt(self.H)
+            self.Qd = (self.desired - self.H + ((self.Tp * Qo) / self.A)) * (self.A / self.Tp)
+            self.H = (self.Tp / self.A) * ((-1) * Qo + self.Qd) + self.H
+            self.Height.append(self.H)
+            self.Points.append(i)
+            print(self.H)
+        else:
+            print(str(self.Beta) + ' ' + str(self.H))
+            Qo = self.Beta * math.sqrt(self.H)
             self.Qd = Qo
-        elif self.H > self.desired:
-            self.Qd = self.QdMIN
-        self.Height.append(self.H)
-        self.Points.append(i)
+            self.H = (1 / self.A) * ((-1) * Qo + self.Qd) * self.Tp + self.H
+            if self.H >= self.H_max:
+                self.H = self.H_max
+            if self.H == self.desired:
+                self.Qd = Qo
+            elif self.H > self.desired:
+                self.Qd = self.QdMIN
+            self.Height.append(self.H)
+            self.Points.append(i)
 
 
