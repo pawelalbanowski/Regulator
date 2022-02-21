@@ -46,7 +46,9 @@ class Regulator:
             if self.H == self.desired:
                 self.Qd = Qo
             elif self.H > self.desired:
-                self.Qd = self.QdMIN
+                self.Qd = self.Qd - 0.01
+            elif self.H < self.desired:
+                self.Qd = self.Qd + 0.01
             self.Height.append(self.H)
             self.Points.append(i)
 
