@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect
 from bokeh.plotting import save, output_file
 from misc import Regulator
+from func import json_read, json_write
 
 app = Flask(__name__)
 
@@ -10,20 +11,17 @@ def process(data):
     Beta = 0.035
     H_min = 0.0
     H_max = 10.0
-    T_sim = 2.0
-    Tp = 1
+    T_sim = 0.5
+    Tp = 0.1
     Qd = 0.05
-    H = 0
 
-    if not data.isdigit() or float(data) > H_max or float(data) < H_min:
-        return "err"
     desired = float(data)
-    cont = Regulator(A, Beta, H_min, H_max, T_sim, Tp, Qd, H, desired)
+    cont = Regulator(A, Beta, H_min, H_max, T_sim, Tp, Qd, desired)
     sampling = cont.getSampling()
+    start = cont.H
     for i in range(int(sampling)):
         cont.correct(i)
-
-    return cont.graph()
+    return cont.graph(start)
 
 
 @app.route('/')
