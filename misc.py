@@ -1,6 +1,6 @@
 import math
 from bokeh.plotting import figure
-from func import json_read, json_write
+from func import check_H, save_H
 
 
 class Regulator:
@@ -12,7 +12,7 @@ class Regulator:
         self.T_sim = T_sim * 3600.0
         self.Tp = Tp
         self.Qd = Qd
-        self.H = (json_read('data.json'))['H']
+        self.H = (check_H('data.json'))['H']
         self.Sampling = self.T_sim / self.Tp
         self.Height = [0.0]
         self.Points = [0.0]
