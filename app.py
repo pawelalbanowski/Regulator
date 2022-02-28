@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, redirect
 from bokeh.plotting import save, output_file
 from misc import Regulator
-from func import json_read, json_write
 
 app = Flask(__name__)
 
