@@ -33,7 +33,7 @@ class Regulator:
         return p
 
     def correct(self, i):
-        json = json_read('data.json')
+        json = check_H('data.json')
         self.H = float(json['H'])
         if self.H != self.desired:
             e = self.desired - self.H
@@ -47,7 +47,7 @@ class Regulator:
             if self.H <= self.H_min:
                 self.H = self.H_min
         json['H'] = self.H
-        json_write('data.json', json)
+        save_H('data.json', json)
         self.Height.append(self.H)
         self.Points.append(i)
 
